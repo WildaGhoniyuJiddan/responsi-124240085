@@ -13,18 +13,14 @@ class ApiService {
     final url = Uri.parse('$_baseUrl/books');
 
     try {
-      // Melakukan HTTP GET request ke URL endpoint
       final response = await http.get(url);
 
-      // Memeriksa status code respons: 200 berarti permintaan berhasil (OK)
       if (response.statusCode == 200) {
-        // Mendekode JSON string dari response.body menjadi List dinamis
+      
         final List<dynamic> data = jsonDecode(response.body);
-
-        // Memetakan (mapping) setiap item JSON ke instance model Character
         return data.map((item) => Character.fromJson(item)).toList();
       } else {
-        // Melempar Exception jika status code selain 200
+    
         throw Exception(
           'Gagal mengambil data karakter: Server merespons dengan status ${response.statusCode}',
         );

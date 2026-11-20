@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart'; // Mengimpor komponen antarmuka Material Design
-import 'package:shared_preferences/shared_preferences.dart'; // Mengimpor SharedPreferences untuk menyimpan data sesi pengguna secara persisten
-
-import 'home_screen.dart'; // Mengimpor HomeScreen untuk navigasi setelah login berhasil
+import 'package:flutter/material.dart'; 
+import 'package:shared_preferences/shared_preferences.dart'; 
+import 'home_screen.dart'; 
 
 // LoginScreen menggunakan StatefulWidget karena layar ini mengelola input teks dan state dinamis
 class LoginScreen extends StatefulWidget {
@@ -19,8 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   @override
-  // Method dispose dipanggil ketika widget dihapus dari pohon widget (widget tree)
-  // Sangat penting untuk menghapus controller agar tidak terjadi kebocoran memori (memory leak)
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
@@ -42,8 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
       // Menyimpan string username yang sedang aktif
       await prefs.setString('username', username);
 
-      // Pengecekan apakah widget masih terpasang (mounted) di layar sebelum menggunakan BuildContext
-      // Ini mencegah error jika operasi asynchronous selesai saat user sudah meninggalkan layar
       if (!mounted) return;
 
       // Menampilkan SnackBar berwarna hijau sebagai notifikasi keberhasilan login
@@ -64,8 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
 
-      // Berpindah ke HomeScreen dan menggantikan LoginScreen di navigation stack
-      // Pengguna tidak dapat menekan tombol kembali (back button) untuk kembali ke halaman login
+    
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
